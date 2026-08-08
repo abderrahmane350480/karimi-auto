@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #0F3D2E;
+  --color-primary-dark: #08261D;
+  --color-accent: #D7A84F;
+  --color-bg: #F7F1E8;
+  --color-surface: #FFFFFF;
+  --color-ink: #161616;
+  --color-muted: #5E625F;
+  --color-success: #168A4A;
+  --color-urgency: #B42318;
+  --color-border: #E6DDD0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-cairo), var(--font-tajawal), sans-serif;
+  background-color: var(--color-bg);
+  color: var(--color-ink);
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+}
+
+/* RTL base */
+[dir="rtl"] {
+  text-align: right;
+}
+
+/* Smooth image placeholder */
+.img-placeholder {
+  background: linear-gradient(135deg, #0F3D2E 0%, #F7F1E8 60%, #D7A84F 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-family: var(--font-cairo), sans-serif;
+  font-size: 0.875rem;
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Focus ring */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: 3px;
+}
+
+/* Cart drawer overlay */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 40;
+}
+
+/* Modal overlay — z-60 to appear above cart drawer (z-50) */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Use dvh for true mobile centering (accounts for browser chrome) */
+  min-height: 100dvh;
+  padding: 1rem;
+  overflow-y: auto;
+}

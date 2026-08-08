@@ -1,0 +1,19 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      # Leave NEXT_PUBLIC_API_BASE_URL empty — uses built-in /api/orders route
+      - NEXT_PUBLIC_API_BASE_URL=
+      - NEXT_PUBLIC_SITE_URL=https://karimiauto.site
+      # ⚠️  PASTE YOUR GOOGLE APPS SCRIPT URL BELOW (required for orders to appear in Google Sheets)
+      - GOOGLE_SHEET_WEBHOOK_URL=
+      # Optional: Ad pixels
+      - NEXT_PUBLIC_META_PIXEL_ID=
+      - NEXT_PUBLIC_TIKTOK_PIXEL_ID=
+      - NEXT_PUBLIC_SNAP_PIXEL_ID=
