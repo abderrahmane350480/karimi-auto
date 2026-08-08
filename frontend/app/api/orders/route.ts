@@ -11,14 +11,14 @@ function generateOrderId(): string {
   return crypto.randomUUID();
 }
 
-function generateOrderNumber(): string {
-  const ts = Date.now().toString(36).toUpperCase();
-  const rand = Math.random().toString(36).slice(2, 5).toUpperCase();
-  return `KARIMI-${ts}-${rand}`;
+// Fallback order number used only if Google Sheets webhook is unavailable
+function generateFallbackOrderNumber(): string {
+  const num = String(Math.floor(Math.random() * 90000) + 10000);
+  return `KARIMI-${num}`;
 }
 
+// Returns the sequential order ID assigned by Google Sheets (e.g. "KARIMI-00001"), or null on failure
 async function pushToGoogleSheets(payload: {
-  orderNumber: string;
   orderId: string;
   name: string;
   phone: string;
@@ -28,13 +28,13 @@ async function pushToGoogleSheets(payload: {
   totalPrice: number;
   currency: string;
   status: string;
-}) {
+}): Promise<string | null> {
   const webhookUrl = process.env.GOOGLE_SHEET_WEBHOOK_URL;
-  if (!webhookUrl) return; // skip silently if not configured
+  if (!webhookUrl) return null;
 
   const body = {
     data: new Date().toISOString().slice(0, 10),
-    order_id: payload.orderNumber,
+    order_id: payload.orderId,
     country: "Morocco",
     name: payload.name,
     phone: payload.phone,
@@ -51,15 +51,18 @@ async function pushToGoogleSheets(payload: {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(body),
-      redirect: "follow", // Google Apps Script always redirects — must follow
+      redirect: "follow",
     });
     if (!res.ok) {
       console.error(`[orders] Google Sheets webhook returned ${res.status}`);
-    } else {
-      console.log("[orders] ✅ Google Sheets webhook success");
+      return null;
     }
+    const json = await res.json();
+    console.log("[orders] ✅ Google Sheets webhook success, order_id:", json.order_id);
+    return json.order_id ?? null;
   } catch (err) {
     console.error("[orders] ❌ Failed to push to Google Sheets:", err);
+    return null;
   }
 }
 
@@ -78,7 +81,6 @@ export async function POST(req: NextRequest) {
     }
 
     const orderId = generateOrderId();
-    const orderNumber = generateOrderNumber();
     const grandTotal = totals.grandTotal;
 
     // Build response items
@@ -104,8 +106,8 @@ export async function POST(req: NextRequest) {
     const skuStr = cart.map((i) => `${i.slug}:${i.bundlePieces}`).join(",");
     const totalQty = cart.reduce((s, i) => s + i.bundlePieces, 0);
 
-    await pushToGoogleSheets({
-      orderNumber,
+    // Google Sheets assigns the sequential order number (KARIMI-00001, etc.)
+    const sheetOrderNumber = await pushToGoogleSheets({
       orderId,
       name: customer.name,
       phone: customer.phoneE164,
@@ -116,6 +118,8 @@ export async function POST(req: NextRequest) {
       currency: totals.currency || "MAD",
       status: "pending",
     });
+
+    const orderNumber = sheetOrderNumber ?? generateFallbackOrderNumber();
 
     return NextResponse.json({
       orderId,

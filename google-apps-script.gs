@@ -26,9 +26,15 @@ function doPost(e) {
 
     var payload = JSON.parse(e.postData.contents);
 
+    // Generate sequential order number: KARIMI-00001, KARIMI-00002, ...
+    // lastRow includes the header row, so data rows = lastRow - 1
+    var dataRows = sheet.getLastRow() - 1;
+    var nextNum = dataRows + 1;
+    var sequentialOrderId = "KARIMI-" + String(nextNum).padStart(5, "0");
+
     var row = [
       payload.data        || "",
-      payload.order_id    || "",
+      sequentialOrderId,
       payload.country     || "Morocco",
       payload.name        || "",
       payload.phone       || "",
@@ -43,7 +49,7 @@ function doPost(e) {
     sheet.appendRow(row);
 
     return ContentService
-      .createTextOutput(JSON.stringify({ status: "ok" }))
+      .createTextOutput(JSON.stringify({ status: "ok", order_id: sequentialOrderId }))
       .setMimeType(ContentService.MimeType.JSON);
 
   } catch (err) {
