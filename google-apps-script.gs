@@ -5,12 +5,10 @@
  * 1. Open your Google Sheet "orders karimi store"
  * 2. Go to Extensions > Apps Script
  * 3. Delete everything in Code.gs and paste this entire file
- * 4. Click Deploy > New deployment
- * 5. Type: Web app
- * 6. Execute as: Me
- * 7. Who has access: Anyone
- * 8. Click Deploy and copy the URL
- * 9. Paste the URL in your backend .env as GOOGLE_SHEET_WEBHOOK_URL
+ * 4. Click Deploy > New deployment (or Manage deployments > edit existing)
+ * 5. Type: Web app | Execute as: Me | Who has access: Anyone
+ * 6. Click Deploy and copy the URL
+ * 7. Paste the URL in EasyPanel frontend environment as GOOGLE_SHEET_WEBHOOK_URL
  *
  * Sheet columns (row 1 headers):
  * A: data | B: order id | C: country | D: name | E: phone
@@ -33,17 +31,17 @@ function doPost(e) {
     var sequentialOrderId = "KARIMI-" + String(nextNum).padStart(5, "0");
 
     var row = [
-      payload.data        || "",
+      payload.data       || "",
       sequentialOrderId,
-      payload.country     || "Morocco",
-      payload.name        || "",
-      payload.phone       || "",
-      payload.products    || "",
-      payload.sku         || "",
-      payload.quantiy     || "",
-      payload.totalprice  || 0,
-      payload.currency    || "MAD",
-      payload.status      || ""
+      payload.country    || "Morocco",
+      payload.name       || "",
+      payload.phone      || "",
+      payload.products   || "",
+      payload.sku        || "",
+      payload.quantiy    || "",
+      payload.totalprice || 0,
+      payload.currency   || "MAD",
+      payload.status     || ""
     ];
 
     sheet.appendRow(row);
