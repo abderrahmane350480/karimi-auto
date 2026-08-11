@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { CheckCircle, ShieldCheck, Truck, Award, Beaker, Star, AlertTriangle, Users, Clock } from "lucide-react";
 import { PRODUCTS, getProductBySlug } from "@/data/products";
@@ -49,24 +50,21 @@ const PRODUCT_REVIEWS: Record<string, { text: string; name: string; city: string
 
 function AlternatingSection({
   index,
-  imagePlaceholderLabel,
-  imagePlaceholderIcon,
+  productImage,
+  productName,
   children,
 }: {
   index: number;
-  imagePlaceholderLabel: string;
-  imagePlaceholderIcon: string;
+  productImage: string;
+  productName: string;
   children: React.ReactNode;
 }) {
   const imageLeft = index % 2 === 0;
   return (
     <div className="grid md:grid-cols-2 gap-10 items-center">
       <div className={imageLeft ? "md:order-2" : "md:order-1"}>
-        <div className="img-placeholder w-full aspect-[4/3] rounded-2xl">
-          <div className="text-center">
-            <div className="text-5xl mb-2">{imagePlaceholderIcon}</div>
-            <p className="text-white/60 font-arabic text-xs">{imagePlaceholderLabel}</p>
-          </div>
+        <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-border">
+          <Image src={productImage} alt={productName} fill className="object-contain p-6" sizes="(max-width: 768px) 100vw, 50vw" />
         </div>
       </div>
       <div className={imageLeft ? "md:order-1" : "md:order-2"}>{children}</div>
@@ -138,7 +136,7 @@ export default function ProductPage({ params }: Props) {
       {/* ═══════════════ SECTION 1 — PAIN ═══════════════ */}
       <section className="py-14 px-4 bg-bg">
         <div className="max-w-content mx-auto">
-          <AlternatingSection index={0} imagePlaceholderLabel="المشكل الحقيقي" imagePlaceholderIcon="😤">
+          <AlternatingSection index={0} productImage={product.images[0]} productName={product.arabicName}>
             <div>
               <div className="inline-flex items-center gap-1.5 bg-urgency/10 text-urgency font-arabic font-bold text-xs px-3 py-1 rounded-full mb-3">
                 <AlertTriangle className="w-3 h-3" />
@@ -165,7 +163,7 @@ export default function ProductPage({ params }: Props) {
       {/* ═══════════════ SECTION 2 — SOLUTION / DEMO ═══════════════ */}
       <section className="py-14 px-4">
         <div className="max-w-content mx-auto">
-          <AlternatingSection index={1} imagePlaceholderLabel="الحل فالاستعمال" imagePlaceholderIcon="✅">
+          <AlternatingSection index={1} productImage={product.images[0]} productName={product.arabicName}>
             <div>
               <SectionHeader badge="الحل" title="كيفاش كيخدم — بسيط وفعال" subtitle="ما خاصكش تكون خبير. النتيجة من أول استعمال." />
               <ul className="mt-5 space-y-3">
@@ -188,7 +186,7 @@ export default function ProductPage({ params }: Props) {
       {/* ═══════════════ SECTION 3 — SCIENCE & MATERIALS ═══════════════ */}
       <section className="py-14 px-4 bg-bg">
         <div className="max-w-content mx-auto">
-          <AlternatingSection index={2} imagePlaceholderLabel="تفاصيل المواد والتقنية" imagePlaceholderIcon="🔬">
+          <AlternatingSection index={2} productImage={product.images[0]} productName={product.arabicName}>
             <div>
               <SectionHeader
                 badge="العلم والمواد"
@@ -227,7 +225,7 @@ export default function ProductPage({ params }: Props) {
       {/* ═══════════════ SECTION 4 — SPECS + PROOF ═══════════════ */}
       <section className="py-14 px-4">
         <div className="max-w-content mx-auto">
-          <AlternatingSection index={3} imagePlaceholderLabel="مواصفات تقنية" imagePlaceholderIcon="🔩">
+          <AlternatingSection index={3} productImage={product.images[0]} productName={product.arabicName}>
             <div>
               <SectionHeader badge="المواصفات التقنية" title="شنو فيه المنتج بالضبط — بالتفصيل" />
               <ul className="mt-5 space-y-2">
@@ -257,7 +255,7 @@ export default function ProductPage({ params }: Props) {
       {/* ═══════════════ SECTION 5 — WHY PREMIUM ═══════════════ */}
       <section className="py-14 px-4 bg-bg">
         <div className="max-w-content mx-auto">
-          <AlternatingSection index={4} imagePlaceholderLabel="الجودة المختارة" imagePlaceholderIcon="⭐">
+          <AlternatingSection index={4} productImage={product.images[0]} productName={product.arabicName}>
             <div>
               <SectionHeader badge="علاش الثمن مبرر" title="ماشي غالي — هادي استثمار فطوموبيلتك" subtitle="المنتجات الرخيصة كتتلف فأسبوع وكتكلفك أكثر على المدى الطويل. هنا كتشري جودة كتدوم." />
               <ul className="mt-5 space-y-3">
@@ -276,7 +274,7 @@ export default function ProductPage({ params }: Props) {
       {/* ═══════════════ SECTION 6 — CERTIFICATIONS & AUTHORITY ═══════════════ */}
       <section className="py-14 px-4">
         <div className="max-w-content mx-auto">
-          <AlternatingSection index={5} imagePlaceholderLabel="شهادات الجودة" imagePlaceholderIcon="🏆">
+          <AlternatingSection index={5} productImage={product.images[0]} productName={product.arabicName}>
             <div>
               <SectionHeader
                 badge="الثقة والجودة"

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { ShoppingCart, CheckCircle } from "lucide-react";
 import { PRODUCTS } from "@/data/products";
 import type { Product } from "@/data/products";
@@ -100,11 +101,8 @@ export default function ProductCrossSells({ currentProduct }: ProductCrossSellsP
             className="grid md:grid-cols-2 gap-8 md:gap-12 items-center"
           >
             <div className={imageLeft ? "md:order-1" : "md:order-2"}>
-              <div className="img-placeholder w-full aspect-[4/3] rounded-2xl">
-                <div className="text-center">
-                  <div className="text-5xl mb-2">{copy.emoji}</div>
-                  <p className="text-white/60 font-arabic text-xs">{crossSell.shortArabicName}</p>
-                </div>
+              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden bg-white border border-border">
+                <Image src={crossSell.images[0]} alt={crossSell.shortArabicName} fill className="object-contain p-6" sizes="(max-width: 768px) 100vw, 50vw" />
               </div>
             </div>
 

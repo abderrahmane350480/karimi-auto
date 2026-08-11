@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/stores/cart-store";
@@ -192,9 +193,8 @@ export default function UpsellModal() {
 
               {/* Upsell product */}
               <div className="flex items-center gap-4 bg-bg rounded-xl p-4 mb-5 border border-accent/30">
-                {/* Replace with real product image before launch */}
-                <div className="img-placeholder w-20 h-20 rounded-xl flex-shrink-0 text-base">
-                  🚗
+                <div className="relative w-20 h-20 rounded-xl flex-shrink-0 overflow-hidden bg-white border border-border">
+                  <Image src={upsellProduct.images[0]} alt={upsellProduct.shortArabicName} fill className="object-contain p-1" sizes="80px" />
                 </div>
                 <div className="flex-1">
                   <p className="font-arabic font-bold text-ink text-base leading-snug mb-1">

@@ -144,10 +144,7 @@ export const PRODUCTS: Product[] = [
       },
     ],
     images: [
-      "/images/placeholders/sunshade-1.jpg",
-      "/images/placeholders/sunshade-2.jpg",
-      "/images/placeholders/sunshade-3.jpg",
-      "/images/placeholders/sunshade-4.jpg",
+      "/images/products/umbrella-sunshade.png",
     ],
     offerLadder: [
       {
@@ -304,10 +301,7 @@ export const PRODUCTS: Product[] = [
       },
     ],
     images: [
-      "/images/placeholders/ceramic-1.jpg",
-      "/images/placeholders/ceramic-2.jpg",
-      "/images/placeholders/ceramic-3.jpg",
-      "/images/placeholders/ceramic-4.jpg",
+      "/images/products/ceramic-spray.png",
     ],
     offerLadder: [
       {
@@ -464,10 +458,7 @@ export const PRODUCTS: Product[] = [
       },
     ],
     images: [
-      "/images/placeholders/gps-1.jpg",
-      "/images/placeholders/gps-2.jpg",
-      "/images/placeholders/gps-3.jpg",
-      "/images/placeholders/gps-4.jpg",
+      "/images/products/gps-tracker.png",
     ],
     offerLadder: [
       {
@@ -552,6 +543,11 @@ export const PRODUCTS: Product[] = [
 
 export function getProductBySlug(slug: string): Product | undefined {
   return PRODUCTS.find((p) => p.slug === slug);
+}
+
+export function getProductImage(slug: string): string {
+  const product = PRODUCTS.find((p) => p.slug === slug);
+  return product?.images[0] ?? "/images/products/umbrella-sunshade.png";
 }
 
 export function getCrossSellProducts(cartSlugs: string[]): Product[] {

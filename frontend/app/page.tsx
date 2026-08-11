@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { ShieldCheck, Truck, PhoneCall, PackageCheck, CheckCircle, AlertTriangle, Flame, Eye } from "lucide-react";
 import TrustStrip from "@/components/ui/TrustStrip";
@@ -68,13 +69,12 @@ export default function HomePage() {
         <div className="max-w-content mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div className="order-2 md:order-1">
-              <div className="img-placeholder w-full aspect-[4/3] rounded-2xl text-center">
-                <div>
-                  <div className="text-6xl mb-3">🛡️🚗</div>
-                  <p className="text-white/70 font-arabic text-sm">
-                    حماية الطوموبيل الكاملة
-                  </p>
-                </div>
+              <div className="grid grid-cols-2 gap-3">
+                {PRODUCTS.map((p) => (
+                  <div key={p.slug} className={`relative aspect-square rounded-2xl overflow-hidden bg-white/10 ${p.slug === "umbrella-sunshade-titanium" ? "col-span-2" : ""}`}>
+                    <Image src={p.images[0]} alt={p.shortArabicName} fill className="object-contain p-4" sizes="(max-width: 768px) 50vw, 25vw" />
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -195,13 +195,12 @@ export default function HomePage() {
                 ))}
               </ul>
             </div>
-            <div>
-              <div className="img-placeholder w-full aspect-[4/3] rounded-2xl">
-                <div className="text-center">
-                  <div className="text-5xl mb-3">🛡️</div>
-                  <p className="text-white/70 font-arabic text-sm">حماية الطوموبيل الكاملة</p>
+            <div className="grid grid-cols-3 gap-3">
+              {PRODUCTS.map((p) => (
+                <div key={p.slug} className="relative aspect-square rounded-2xl overflow-hidden bg-white border border-border">
+                  <Image src={p.images[0]} alt={p.shortArabicName} fill className="object-contain p-3" sizes="(max-width: 768px) 33vw, 15vw" />
                 </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>

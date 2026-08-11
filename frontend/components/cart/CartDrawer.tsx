@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import { X, Trash2, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useCartStore } from "@/stores/cart-store";
-import { getCrossSellProducts } from "@/data/products";
+import { getCrossSellProducts, getProductImage } from "@/data/products";
 import { generateEventId } from "@/lib/tracking/ids";
 import { trackInitiateCheckout } from "@/lib/tracking/events";
 import CrossSellCard from "./CrossSellCard";
@@ -97,9 +98,8 @@ export default function CartDrawer() {
                 <>
                   {items.map((item) => (
                     <div key={item.lineId} className="flex items-center gap-3 bg-surface rounded-xl p-3 border border-border">
-                      {/* Replace with real product image before launch */}
-                      <div className="img-placeholder w-14 h-14 rounded-lg flex-shrink-0 text-xs">
-                        <span>🚗</span>
+                      <div className="relative w-14 h-14 rounded-lg flex-shrink-0 overflow-hidden bg-white border border-border">
+                        <Image src={getProductImage(item.slug)} alt={item.nameAr} fill className="object-contain p-1" sizes="56px" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="font-arabic font-semibold text-sm text-ink leading-tight line-clamp-2">

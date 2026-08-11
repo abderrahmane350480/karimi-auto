@@ -1,6 +1,6 @@
 "use client";
 
-import Link from "next/link";
+import Image from "next/image";
 import { Plus } from "lucide-react";
 import type { Product } from "@/data/products";
 import { useCartStore } from "@/stores/cart-store";
@@ -32,9 +32,8 @@ export default function CrossSellCard({ product }: CrossSellCardProps) {
 
   return (
     <div className="flex items-center gap-3 bg-bg rounded-xl p-3 border border-border">
-      {/* Replace with real product image before launch */}
-      <div className="img-placeholder w-16 h-16 rounded-lg flex-shrink-0 text-xs">
-        <span className="text-white/60">🚗</span>
+      <div className="relative w-16 h-16 rounded-lg flex-shrink-0 overflow-hidden bg-white border border-border">
+        <Image src={product.images[0]} alt={product.shortArabicName} fill className="object-contain p-1" sizes="64px" />
       </div>
       <div className="flex-1 min-w-0">
         <p className="text-xs text-primary font-arabic font-semibold mb-0.5">
