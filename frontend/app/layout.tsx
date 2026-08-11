@@ -9,6 +9,7 @@ import CheckoutModal from "@/components/checkout/CheckoutModal";
 import UpsellModal from "@/components/checkout/UpsellModal";
 import TrackingInit from "@/components/tracking/TrackingInit";
 import RecentOrderToast from "@/components/ui/RecentOrderToast";
+import StoreShell from "@/components/layout/StoreShell";
 
 const cairo = Cairo({
   subsets: ["arabic", "latin"],
@@ -30,13 +31,13 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "كريمي أوطو — حماية الطوموبيل الكاملة بالمغرب",
+  title: "كريمي أوطو — خبراء حماية الطوموبيل فالمغرب",
   description:
-    "3 منتجات ذكية لحماية طوموبيلتك: واقي الشمس التيتانيوم، سبراي السيراميك، وجهاز GPS ضد السرقة. الدفع عند الاستلام.",
-  keywords: ["كريمي أوطو", "واقي الشمس", "سبراي السيراميك", "GPS ضد السرقة", "حماية السيارة", "المغرب", "الدفع عند الاستلام"],
+    "متخصصون فحماية السيارات: واقي الشمس تيتانيوم، سبراي السيراميك نانو، وجهاز GPS ضد السرقة. منتجات مختبرة للمناخ المغربي. الدفع عند الاستلام.",
+  keywords: ["كريمي أوطو", "حماية الطوموبيل", "واقي الشمس", "سبراي السيراميك", "GPS ضد السرقة", "حماية السيارة", "المغرب", "الدفع عند الاستلام"],
   openGraph: {
-    title: "كريمي أوطو — حماية الطوموبيل الكاملة بالمغرب",
-    description: "3 منتجات ذكية كتحمي طوموبيلتك من الحرارة، الخدوش، والسرقة — الدفع عند الاستلام.",
+    title: "كريمي أوطو — خبراء حماية الطوموبيل فالمغرب",
+    description: "متخصصون فحماية السيارات من الحرارة، الخدوش، والسرقة — منتجات مختبرة للمناخ المغربي. الدفع عند الاستلام.",
     url: "https://karimiauto.site",
     siteName: "Karimi Auto",
     locale: "ar_MA",
@@ -55,18 +56,19 @@ export default function RootLayout({
       <body
         className={`${cairo.variable} ${tajawal.variable} ${inter.variable} font-arabic`}
       >
-        <AnnouncementBar />
-        <Header />
+        <StoreShell>
+          <AnnouncementBar />
+          <Header />
+        </StoreShell>
         <main>{children}</main>
-        <Footer />
-        {/* Global interactive components */}
-        <CartDrawer />
-        <CheckoutModal />
-        <UpsellModal />
-        {/* Recent order social proof toasts */}
-        <RecentOrderToast />
-        {/* Deferred pixel initialization — loads after page is interactive */}
-        <TrackingInit />
+        <StoreShell>
+          <Footer />
+          <CartDrawer />
+          <CheckoutModal />
+          <UpsellModal />
+          <RecentOrderToast />
+          <TrackingInit />
+        </StoreShell>
       </body>
     </html>
   );

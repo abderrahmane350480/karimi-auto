@@ -5,12 +5,21 @@ import type { Product } from "@/data/products";
 import { useCartStore } from "@/stores/cart-store";
 import { generateEventId } from "@/lib/tracking/ids";
 import { trackAddToCart } from "@/lib/tracking/events";
-import { ShieldCheck, Truck, PhoneCall } from "lucide-react";
+import { ShieldCheck, Truck, PhoneCall, Clock, Users } from "lucide-react";
 
-const URGENCY_MESSAGES: Record<string, string> = {
-  "umbrella-sunshade-titanium": "⚠️ نحنا فعز الصيف — الحرارة غادي تزيد هاد الأسابيع. احمي طوموبيلتك دابا.",
-  "nano-ceramic-coating-spray": "⚠️ الغبار والرمل كيخدشو الطلاء كل يوم كتأخر فيه — كل يوم بلا حماية = خدوش جديدة.",
-  "gps-tracker-4g-anti-theft": "⚠️ سرقة الطوموبيلات فالمغرب +12% هاد العام. كل يوم بلا GPS = مخاطرة.",
+const URGENCY_MESSAGES: Record<string, string[]> = {
+  "umbrella-sunshade-titanium": [
+    "الحرارة داخل طوموبيلتك دابا فوق 70°C — التابلو كيتشقق والجلد كيتبهت كل يوم كتأخر فيه",
+    "نحنا فعز الصيف — الحرارة غادي تزيد هاد الأسابيع. كل يوم بلا واقي = ضرر جديد",
+  ],
+  "nano-ceramic-coating-spray": [
+    "الغبار والرمل كيخدشو طلاء طوموبيلتك دابا هاد اللحظة — كل يوم بلا حماية = خدوش ما تتمسحش",
+    "الكاروسري كيكلف 5,000-15,000 درهم — السبراي كيحمي 6 أشهر بجزء صغير من الثمن",
+  ],
+  "gps-tracker-4g-anti-theft": [
+    "سرقة الطوموبيلات فالمغرب زادت +12% هاد العام — كازا 38% ديال الحالات. كل يوم بلا GPS = مخاطرة",
+    "العصابات كيستعملو أجهزة تشويش إلكترونية — الآلارم العادي ما كيصلحش. GPS هو الحل الوحيد",
+  ],
 };
 
 function useSessionStockCount() {
@@ -22,25 +31,33 @@ function useSessionStockCount() {
   return ref.current;
 }
 
+function useRandomUrgencyMsg(slug: string) {
+  const ref = useRef<string | null>(null);
+  if (ref.current === null) {
+    const msgs = URGENCY_MESSAGES[slug] ?? [];
+    ref.current = msgs[Math.floor(Math.random() * msgs.length)] ?? null;
+  }
+  return ref.current;
+}
+
 interface OfferSelectorProps {
   product: Product;
 }
 
 export default function OfferSelector({ product }: OfferSelectorProps) {
-  const [selectedIdx, setSelectedIdx] = useState(1); // Default: middle tier (most popular)
+  const [selectedIdx, setSelectedIdx] = useState(1);
   const { addItem, openCart } = useCartStore();
   const stockCount = useSessionStockCount();
-  const urgencyMsg = URGENCY_MESSAGES[product.slug];
+  const urgencyMsg = useRandomUrgencyMsg(product.slug);
 
   const selectedBundle = product.crossSellBundles[selectedIdx];
 
   function handleAddToCart() {
     const eventId = generateEventId();
     
-    // Add all items in the bundle to cart
     selectedBundle.items.forEach((item) => {
       addItem({
-        productId: item.slug, // using slug as productId for simplicity
+        productId: item.slug,
         slug: item.slug,
         nameAr: item.nameAr,
         quantity: 1,
@@ -65,20 +82,26 @@ export default function OfferSelector({ product }: OfferSelectorProps) {
       {urgencyMsg && (
         <div className="bg-amber-50 border border-amber-300 rounded-xl px-4 py-3 min-w-0">
           <p className="font-arabic text-amber-800 text-sm leading-relaxed font-semibold whitespace-normal break-words">
-            {urgencyMsg}
+            ⚠️ {urgencyMsg}
           </p>
         </div>
       )}
 
-      {/* Stock counter */}
-      <div className="flex items-center justify-center gap-2 bg-urgency/10 border border-urgency/30 rounded-xl px-4 py-2.5 min-w-0">
-        <span className="w-2 h-2 rounded-full bg-urgency animate-pulse flex-shrink-0" />
-        <p className="font-arabic text-urgency text-sm font-bold whitespace-normal break-words">
-          باقي فقط {stockCount} قطعة فالمخزون — الطلب عالي هاد الأيام
-        </p>
+      {/* Stock + demand counter */}
+      <div className="flex items-center justify-between bg-urgency/10 border border-urgency/30 rounded-xl px-4 py-2.5 min-w-0">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 rounded-full bg-urgency animate-pulse flex-shrink-0" />
+          <p className="font-arabic text-urgency text-sm font-bold whitespace-normal break-words">
+            باقي فقط {stockCount} قطعة فالمخزون
+          </p>
+        </div>
+        <div className="flex items-center gap-1 text-xs text-urgency/80 font-arabic flex-shrink-0">
+          <Users className="w-3 h-3" />
+          <span>{12 + Math.floor(Math.random() * 8)} كيشوفو دابا</span>
+        </div>
       </div>
 
-      {/* Offer cards — stacked vertically, result-focused */}
+      {/* Offer cards */}
       <div className="flex flex-col gap-2 w-full">
         {product.crossSellBundles.map((bundle, idx) => {
           const isSelected = selectedIdx === idx;
@@ -97,7 +120,6 @@ export default function OfferSelector({ product }: OfferSelectorProps) {
               }`}
               aria-pressed={isSelected}
             >
-              {/* Floating badge */}
               {bundle.badge && (
                 <span
                   className={`absolute -top-2.5 right-4 text-xs font-arabic font-bold px-2.5 py-0.5 rounded-full ${
@@ -111,7 +133,6 @@ export default function OfferSelector({ product }: OfferSelectorProps) {
               )}
 
               <div className="flex flex-col items-stretch gap-3 px-3.5 py-3.5 sm:flex-row sm:items-center sm:justify-between sm:px-4">
-                {/* Result info */}
                 <div className="flex flex-col items-end flex-1 min-w-0 max-w-full gap-0.5">
                   <span className={`w-full whitespace-normal break-words font-arabic font-bold text-base leading-tight ${isSelected ? "text-primary" : "text-ink"}`}>
                     {bundle.label}
@@ -126,7 +147,6 @@ export default function OfferSelector({ product }: OfferSelectorProps) {
                   )}
                 </div>
 
-                {/* Price + radio */}
                 <div className="flex items-center justify-between gap-2.5 flex-shrink-0 sm:justify-start">
                   <div className="text-left">
                     <p className="font-bold text-primary text-xl font-latin leading-none whitespace-nowrap">
@@ -154,9 +174,11 @@ export default function OfferSelector({ product }: OfferSelectorProps) {
       {/* CTA */}
       <button
         onClick={handleAddToCart}
-        className="w-full bg-primary hover:bg-primary-dark active:scale-[0.98] text-white font-arabic font-bold text-lg py-4 rounded-cta transition-all shadow-lg"
+        className="w-full bg-primary hover:bg-primary-dark active:scale-[0.98] text-white font-arabic font-bold text-lg py-4 rounded-cta transition-all shadow-lg relative overflow-hidden"
       >
-        اطلب الآن — {selectedBundle.totalPrice} MAD
+        <span className="relative z-10">
+          🛒 اطلب الآن — {selectedBundle.totalPrice} MAD
+        </span>
       </button>
 
       {/* Trust row */}
@@ -167,14 +189,17 @@ export default function OfferSelector({ product }: OfferSelectorProps) {
         </span>
         <span className="flex items-center gap-1 text-xs font-arabic text-muted">
           <Truck className="w-3.5 h-3.5 text-primary" />
-          توصيل 1-5 أيام
+          توصيل 24-72h
         </span>
         <span className="flex items-center gap-1 text-xs font-arabic text-muted">
           <PhoneCall className="w-3.5 h-3.5 text-primary" />
           تأكيد هاتفي 24h
         </span>
+        <span className="flex items-center gap-1 text-xs font-arabic text-muted">
+          <Clock className="w-3.5 h-3.5 text-accent" />
+          الدفع عند الاستلام
+        </span>
       </div>
-
     </div>
   );
 }

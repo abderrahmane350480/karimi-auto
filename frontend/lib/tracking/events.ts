@@ -1,6 +1,7 @@
 "use client";
 
 import { onPixelsReady } from "./pixels";
+import { recordTrafficEvent } from "./server-events";
 
 // Platform-specific event name map
 const EVENT_MAP = {
@@ -45,6 +46,7 @@ function snaptr(event: string, data: Record<string, unknown>, dedupId?: string) 
 }
 
 export function trackPageView() {
+  recordTrafficEvent({ eventType: "page_view" });
   onPixelsReady(() => {
     fbq("track", "PageView");
     ttq("PageView", {});
@@ -53,6 +55,7 @@ export function trackPageView() {
 }
 
 export function trackViewContent(product: { slug: string; arabicName: string; price: number }, eventId: string) {
+  recordTrafficEvent({ eventType: "view_content", productSlug: product.slug });
   onPixelsReady(() => {
     fbq("track", "ViewContent", { content_ids: [product.slug], content_name: product.arabicName, value: product.price, currency: "MAD" }, { eventID: eventId });
     ttq("ViewContent", { content_id: product.slug, content_name: product.arabicName, value: product.price, currency: "MAD" }, eventId);
@@ -61,6 +64,7 @@ export function trackViewContent(product: { slug: string; arabicName: string; pr
 }
 
 export function trackAddToCart(item: { slug: string; price: number; quantity: number }, eventId: string) {
+  recordTrafficEvent({ eventType: "add_to_cart", productSlug: item.slug });
   onPixelsReady(() => {
     fbq("track", "AddToCart", { content_ids: [item.slug], value: item.price, currency: "MAD" }, { eventID: eventId });
     ttq("AddToCart", { content_id: item.slug, value: item.price, currency: "MAD", quantity: item.quantity }, eventId);
@@ -69,6 +73,7 @@ export function trackAddToCart(item: { slug: string; price: number; quantity: nu
 }
 
 export function trackInitiateCheckout(value: number, eventId: string) {
+  recordTrafficEvent({ eventType: "initiate_checkout" });
   onPixelsReady(() => {
     fbq("track", "InitiateCheckout", { value, currency: "MAD" }, { eventID: eventId });
     ttq("InitiateCheckout", { value, currency: "MAD" }, eventId);

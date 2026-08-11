@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.core.logging import setup_logging
-from app.api.routes import health, orders
+from app.api.routes import admin, analytics, health, orders
 
 
 @asynccontextmanager
@@ -32,3 +32,5 @@ app.add_middleware(
 
 app.include_router(health.router)
 app.include_router(orders.router, prefix="/api")
+app.include_router(analytics.router, prefix="/api")
+app.include_router(admin.router, prefix="/api")

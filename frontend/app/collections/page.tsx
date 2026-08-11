@@ -8,8 +8,8 @@ import TrustStrip from "@/components/ui/TrustStrip";
 import { PRODUCTS } from "@/data/products";
 
 export const metadata: Metadata = {
-  title: "جميع المنتجات — كريمي أوطو",
-  description: "اكتشف مجموعة كريمي أوطو للطوموبيل: مكنسة، منظم جلد، ومنفاخ رقمي.",
+  title: "منتجات حماية الطوموبيل — كريمي أوطو",
+  description: "مجموعة كريمي أوطو لحماية الطوموبيل: واقي الشمس تيتانيوم، سبراي السيراميك نانو، وجهاز GPS ضد السرقة. مختبرة للمناخ المغربي.",
 };
 
 const COLLECTION_FAQS = [
@@ -34,13 +34,13 @@ export default function CollectionsPage() {
       <section className="bg-primary text-white py-12 px-4">
         <div className="max-w-content mx-auto text-center">
           <span className="inline-block bg-accent/20 text-accent font-arabic font-semibold text-sm px-3 py-1 rounded-full mb-3">
-            مجموعة كريمي أوطو
+            خبراء حماية الطوموبيل
           </span>
           <h1 className="text-3xl md:text-4xl font-arabic font-bold mb-3">
-            مجموعة كريمي أوطو للطوموبيل
+            منتجات حماية الطوموبيل
           </h1>
           <p className="text-white/80 font-arabic text-lg max-w-xl mx-auto">
-            ثلاثة منتجات مختارة بعناية للسائق المغربي — منظمة، نقية، ومأمونة فالطريق.
+            3 منتجات متخصصة مختبرة للمناخ المغربي — حماية من الحرارة، الخدوش، والسرقة.
           </p>
         </div>
       </section>

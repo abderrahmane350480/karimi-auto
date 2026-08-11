@@ -7,6 +7,34 @@ const PRODUCT_NAMES: Record<string, string> = {
   "gps-tracker-4g-anti-theft": "جهاز GPS ضد السرقة 4G",
 };
 
+function backendApiUrl(path: string): string {
+  const base =
+    process.env.BACKEND_API_BASE_URL ?? process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
+  return base ? `${base.replace(/\/$/, "")}${path}` : "";
+}
+
+async function proxyToBackend(req: NextRequest, body: unknown) {
+  const url = backendApiUrl("/api/orders");
+  if (!url) return null;
+
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+  const forwardedFor = req.headers.get("x-forwarded-for") ?? req.headers.get("x-real-ip");
+  const userAgent = req.headers.get("user-agent");
+  if (forwardedFor) headers["X-Forwarded-For"] = forwardedFor;
+  if (userAgent) headers["User-Agent"] = userAgent;
+
+  const res = await fetch(url, {
+    method: "POST",
+    headers,
+    body: JSON.stringify(body),
+    cache: "no-store",
+  });
+  const data = await res.json().catch(() => ({ detail: "Backend order API error" }));
+  return NextResponse.json(data, { status: res.status });
+}
+
 function generateOrderId(): string {
   return crypto.randomUUID();
 }
@@ -69,6 +97,8 @@ async function pushToGoogleSheets(payload: {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
+    const backendResponse = await proxyToBackend(req, body);
+    if (backendResponse) return backendResponse;
 
     const { customer, cart, totals } = body as {
       customer: { name: string; phoneRaw: string; phoneE164: string };

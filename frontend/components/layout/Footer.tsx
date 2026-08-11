@@ -3,12 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
-import Logo from "./Logo";
 
 const PRODUCT_LINKS = [
-  { href: "/products/cyclone-vacuum-15000pa", label: "مكنسة سيكلون 15000 Pa" },
-  { href: "/products/leather-seat-organizer", label: "منظم جلد للكراسي" },
-  { href: "/products/digital-tire-inflator-150psi", label: "منفاخ رقمي 150 PSI" },
+  { href: "/products/umbrella-sunshade-titanium", label: "واقي الشمس المظلة تيتانيوم" },
+  { href: "/products/nano-ceramic-coating-spray", label: "سبراي السيراميك نانو" },
+  { href: "/products/gps-tracker-4g-anti-theft", label: "جهاز GPS ضد السرقة 4G" },
 ];
 
 const POLICY_LINKS = [
@@ -33,7 +32,6 @@ function CollapsibleSection({ title, children }: CollapsibleSectionProps) {
 
   return (
     <div className="border-t border-white/10 md:border-0">
-      {/* Mobile toggle header */}
       <button
         className="w-full flex items-center justify-between py-4 md:hidden"
         onClick={() => setOpen((v) => !v)}
@@ -44,11 +42,7 @@ function CollapsibleSection({ title, children }: CollapsibleSectionProps) {
           className={`w-4 h-4 text-white/60 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
         />
       </button>
-
-      {/* Desktop: always visible title */}
       <h3 className="hidden md:block font-arabic font-bold text-accent mb-4">{title}</h3>
-
-      {/* Content — hidden on mobile until opened */}
       <div className={`overflow-hidden transition-all duration-200 md:block ${open ? "max-h-96 pb-4" : "max-h-0 md:max-h-none"}`}>
         {children}
       </div>
@@ -62,7 +56,7 @@ export default function Footer() {
       <div className="max-w-content mx-auto px-4 py-8 md:py-12">
         <div className="grid grid-cols-1 md:grid-cols-4 md:gap-8">
 
-          {/* Brand — always visible, no collapse */}
+          {/* Brand */}
           <div className="md:col-span-1 pb-6 md:pb-0 border-b border-white/10 md:border-0 mb-2 md:mb-0">
             <div className="mb-4">
               <div className="flex items-center gap-2">
@@ -76,22 +70,25 @@ export default function Footer() {
               </div>
             </div>
             <p className="text-white/70 text-sm font-arabic leading-relaxed">
-              منتجات مختارة بعناية للطوموبيلات فالمغرب، بجودة مضمونة وخلاص حتى توصلك السلعة.
+              متخصصون فحماية الطوموبيل فالمغرب — منتجات مختبرة للمناخ المغربي ومعتمدة من +3,200 سائق.
             </p>
-            <div className="mt-4 flex flex-col gap-1 text-sm text-white/60 font-arabic">
-              <span>الدفع عند الاستلام</span>
-              <span>توصيل لجميع مدن المغرب</span>
+            <p className="text-accent/80 text-xs font-arabic mt-2 font-semibold">
+              خبراء حماية الطوموبيل
+            </p>
+            <div className="mt-3 flex flex-col gap-1 text-sm text-white/60 font-arabic">
+              <span>الدفع عند الاستلام — بلا مخاطرة</span>
+              <span>توصيل لجميع مدن المغرب 24-72h</span>
               <span>تأكيد الطلب عبر الهاتف</span>
+              <span>ضمان 30 يوم كامل</span>
               <a
-                href="mailto:contact@hakimiauto.site"
+                href="mailto:contact@karimiauto.site"
                 className="font-latin text-white/60 hover:text-accent transition-colors text-xs mt-1"
               >
-                contact@hakimiauto.site
+                contact@karimiauto.site
               </a>
             </div>
           </div>
 
-          {/* Products — collapsible on mobile */}
           <CollapsibleSection title="المنتجات">
             <ul className="space-y-2.5">
               {PRODUCT_LINKS.map((l) => (
@@ -104,7 +101,6 @@ export default function Footer() {
             </ul>
           </CollapsibleSection>
 
-          {/* Info — collapsible on mobile */}
           <CollapsibleSection title="المعلومات">
             <ul className="space-y-2.5">
               {INFO_LINKS.map((l) => (
@@ -117,7 +113,6 @@ export default function Footer() {
             </ul>
           </CollapsibleSection>
 
-          {/* Policies + Social — collapsible on mobile */}
           <CollapsibleSection title="السياسات">
             <ul className="space-y-2.5 mb-5">
               {POLICY_LINKS.map((l) => (
@@ -138,7 +133,7 @@ export default function Footer() {
 
         <div className="border-t border-white/20 mt-6 md:mt-10 pt-6 text-center text-white/50 text-xs font-arabic">
           <p>© {new Date().getFullYear()} كريمي أوطو — Karimi Auto. جميع الحقوق محفوظة.</p>
-          <p className="mt-1">الدفع عند الاستلام | Paiement à la livraison | كنستعملو pixels للإعلانات للتحسين المستمر</p>
+          <p className="mt-1">الدفع عند الاستلام | توصيل لجميع أنحاء المغرب | ضمان 30 يوم</p>
         </div>
       </div>
     </footer>

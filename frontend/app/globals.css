@@ -3,16 +3,16 @@
 @tailwind utilities;
 
 :root {
-  --color-primary: #0F3D2E;
-  --color-primary-dark: #08261D;
-  --color-accent: #D7A84F;
-  --color-bg: #F7F1E8;
+  --color-primary: #0F2B46;
+  --color-primary-dark: #081A2E;
+  --color-accent: #C8963E;
+  --color-bg: #F5F3F0;
   --color-surface: #FFFFFF;
   --color-ink: #161616;
   --color-muted: #5E625F;
   --color-success: #168A4A;
   --color-urgency: #B42318;
-  --color-border: #E6DDD0;
+  --color-border: #E2DDD6;
 }
 
 * {
@@ -38,7 +38,7 @@ body {
 
 /* Smooth image placeholder */
 .img-placeholder {
-  background: linear-gradient(135deg, #0F3D2E 0%, #F7F1E8 60%, #D7A84F 100%);
+  background: linear-gradient(135deg, #0F2B46 0%, #F5F3F0 60%, #C8963E 100%);
   display: flex;
   align-items: center;
   justify-content: center;

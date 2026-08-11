@@ -35,6 +35,10 @@ class Settings(BaseSettings):
 
     MAXMIND_ACCOUNT_ID: str = ""
     MAXMIND_LICENSE_KEY: str = ""
+    IPQUALITYSCORE_API_KEY: str = ""
+
+    ADMIN_USERNAME: str = ""
+    ADMIN_PASSWORD: str = ""
 
     @property
     def cors_origins_list(self) -> list[str]:

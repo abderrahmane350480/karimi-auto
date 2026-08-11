@@ -10,17 +10,17 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "#0F3D2E",
-          dark: "#08261D",
+          DEFAULT: "#0F2B46",
+          dark: "#081A2E",
         },
-        accent: "#D7A84F",
-        bg: "#F7F1E8",
+        accent: "#C8963E",
+        bg: "#F5F3F0",
         surface: "#FFFFFF",
         ink: "#161616",
         muted: "#5E625F",
         success: "#168A4A",
         urgency: "#B42318",
-        border: "#E6DDD0",
+        border: "#E2DDD6",
       },
       fontFamily: {
         arabic: ["var(--font-cairo)", "var(--font-tajawal)", "sans-serif"],

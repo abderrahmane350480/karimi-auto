@@ -2,7 +2,7 @@ import uuid
 from datetime import datetime, timezone
 from typing import Optional
 
-from sqlalchemy import DateTime, ForeignKey, Integer, JSON, String, Text
+from sqlalchemy import Boolean, DateTime, ForeignKey, Integer, JSON, String, Text
 from sqlalchemy.dialects.postgresql import UUID as PG_UUID
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -115,3 +115,37 @@ class OrderEvent(Base):
     )
 
     order: Mapped[Optional["Order"]] = relationship("Order", back_populates="events")
+
+
+class TrafficEvent(Base):
+    __tablename__ = "traffic_events"
+
+    id: Mapped[uuid.UUID] = mapped_column(
+        PG_UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
+    )
+    event_type: Mapped[str] = mapped_column(String(64), nullable=False)
+    session_id: Mapped[Optional[str]] = mapped_column(String(128), nullable=True)
+    page_url: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    referrer: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    product_slug: Mapped[Optional[str]] = mapped_column(String(128), nullable=True)
+    utm_source: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    utm_medium: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    utm_campaign: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    utm_content: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    utm_term: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    fbclid: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    ttclid: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    sc_click_id: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    client_ip: Mapped[Optional[str]] = mapped_column(String(64), nullable=True)
+    user_agent: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    country_code: Mapped[Optional[str]] = mapped_column(String(8), nullable=True)
+    risk_provider: Mapped[Optional[str]] = mapped_column(String(32), nullable=True)
+    is_vpn: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    is_proxy: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    is_tor: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    is_hosting: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    is_valid_traffic: Mapped[bool] = mapped_column(Boolean, nullable=False, default=False)
+    blocked_reason: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), default=_utcnow
+    )
