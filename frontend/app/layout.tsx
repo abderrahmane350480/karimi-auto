@@ -37,17 +37,31 @@ export const metadata: Metadata = {
   keywords: ["كريمي أوطو", "حماية الطوموبيل", "واقي الشمس", "سبراي السيراميك", "GPS ضد السرقة", "حماية السيارة", "المغرب", "الدفع عند الاستلام"],
   icons: {
     icon: [
-      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon.ico", sizes: "16x16 32x32 48x48" },
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/icon-72x72.png", sizes: "72x72", type: "image/png" },
+      { url: "/icon-96x96.png", sizes: "96x96", type: "image/png" },
+      { url: "/icon-128x128.png", sizes: "128x128", type: "image/png" },
+      { url: "/icon-144x144.png", sizes: "144x144", type: "image/png" },
       { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-384x384.png", sizes: "384x384", type: "image/png" },
       { url: "/icon-512x512.png", sizes: "512x512", type: "image/png" },
     ],
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
+    other: [
+      { rel: "mask-icon", url: "/icon-512x512.png", color: "#0F2B46" },
+    ],
   },
   manifest: "/manifest.json",
+  other: {
+    "msapplication-TileColor": "#0F2B46",
+    "msapplication-TileImage": "/mstile-150x150.png",
+  },
+  themeColor: "#0F2B46",
   openGraph: {
     title: "كريمي أوطو — خبراء حماية الطوموبيل فالمغرب",
     description: "متخصصون فحماية السيارات من الحرارة، الخدوش، والسرقة — منتجات مختبرة للمناخ المغربي. الدفع عند الاستلام.",
