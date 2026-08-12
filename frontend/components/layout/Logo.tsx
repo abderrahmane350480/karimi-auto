@@ -9,7 +9,7 @@ export default function Logo({ compact }: LogoProps) {
   return (
     <Link href="/" className="flex items-center gap-2 no-underline group flex-shrink-0">
       <Image
-        src="/images/logo-header.png"
+        src="/images/logo-header.webp"
         alt="Karimi Auto"
         width={40}
         height={40}

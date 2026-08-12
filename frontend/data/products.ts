@@ -144,7 +144,7 @@ export const PRODUCTS: Product[] = [
       },
     ],
     images: [
-      "/images/products/umbrella-sunshade.png",
+      "/images/products/umbrella-sunshade.webp",
     ],
     offerLadder: [
       {
@@ -301,7 +301,7 @@ export const PRODUCTS: Product[] = [
       },
     ],
     images: [
-      "/images/products/ceramic-spray.png",
+      "/images/products/ceramic-spray.webp",
     ],
     offerLadder: [
       {
@@ -458,7 +458,7 @@ export const PRODUCTS: Product[] = [
       },
     ],
     images: [
-      "/images/products/gps-tracker.png",
+      "/images/products/gps-tracker.webp",
     ],
     offerLadder: [
       {
@@ -547,7 +547,7 @@ export function getProductBySlug(slug: string): Product | undefined {
 
 export function getProductImage(slug: string): string {
   const product = PRODUCTS.find((p) => p.slug === slug);
-  return product?.images[0] ?? "/images/products/umbrella-sunshade.png";
+  return product?.images[0] ?? "/images/products/umbrella-sunshade.webp";
 }
 
 export function getCrossSellProducts(cartSlugs: string[]): Product[] {
