@@ -12,24 +12,25 @@ export default function ProductMediaGallery({
   images,
   arabicName,
 }: ProductMediaGalleryProps) {
+  const galleryImages = images.length > 1 ? images.slice(1) : images;
   const [selected, setSelected] = useState(0);
 
   return (
     <div className="flex flex-col gap-3">
       <div className="relative w-full aspect-square rounded-2xl overflow-hidden bg-white border border-border">
         <Image
-          src={images[selected] ?? images[0]}
+          src={galleryImages[selected] ?? galleryImages[0]}
           alt={arabicName}
           fill
-          className="object-contain p-4"
+          className="object-cover"
           sizes="(max-width: 768px) 100vw, 50vw"
           priority
         />
       </div>
 
-      {images.length > 1 && (
+      {galleryImages.length > 1 && (
         <div className="flex gap-2 overflow-x-auto pb-1">
-          {images.map((src, idx) => (
+          {galleryImages.map((src, idx) => (
             <button
               key={idx}
               onClick={() => setSelected(idx)}
@@ -44,7 +45,7 @@ export default function ProductMediaGallery({
                 src={src}
                 alt={`${arabicName} ${idx + 1}`}
                 fill
-                className="object-contain p-1"
+                className="object-cover"
                 sizes="64px"
               />
             </button>

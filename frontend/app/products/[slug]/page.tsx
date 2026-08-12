@@ -78,6 +78,8 @@ export default function ProductPage({ params }: Props) {
 
   const reviews = PRODUCT_REVIEWS[product.slug] ?? [];
 
+  const img = (index: number) => product.images[index] ?? product.images[0];
+
   return (
     <>
       <ProductViewTracker
@@ -136,7 +138,7 @@ export default function ProductPage({ params }: Props) {
       {/* ═══════════════ SECTION 1 — PAIN ═══════════════ */}
       <section className="py-14 px-4 bg-bg">
         <div className="max-w-content mx-auto">
-          <AlternatingSection index={0} productImage={product.images[0]} productName={product.arabicName}>
+          <AlternatingSection index={0} productImage={img(6)} productName={product.arabicName}>
             <div>
               <div className="inline-flex items-center gap-1.5 bg-urgency/10 text-urgency font-arabic font-bold text-xs px-3 py-1 rounded-full mb-3">
                 <AlertTriangle className="w-3 h-3" />
@@ -163,7 +165,7 @@ export default function ProductPage({ params }: Props) {
       {/* ═══════════════ SECTION 2 — SOLUTION / DEMO ═══════════════ */}
       <section className="py-14 px-4">
         <div className="max-w-content mx-auto">
-          <AlternatingSection index={1} productImage={product.images[0]} productName={product.arabicName}>
+          <AlternatingSection index={1} productImage={img(2)} productName={product.arabicName}>
             <div>
               <SectionHeader badge="الحل" title="كيفاش كيخدم — بسيط وفعال" subtitle="ما خاصكش تكون خبير. النتيجة من أول استعمال." />
               <ul className="mt-5 space-y-3">
@@ -186,7 +188,7 @@ export default function ProductPage({ params }: Props) {
       {/* ═══════════════ SECTION 3 — SCIENCE & MATERIALS ═══════════════ */}
       <section className="py-14 px-4 bg-bg">
         <div className="max-w-content mx-auto">
-          <AlternatingSection index={2} productImage={product.images[0]} productName={product.arabicName}>
+          <AlternatingSection index={2} productImage={img(3)} productName={product.arabicName}>
             <div>
               <SectionHeader
                 badge="العلم والمواد"
@@ -225,7 +227,7 @@ export default function ProductPage({ params }: Props) {
       {/* ═══════════════ SECTION 4 — SPECS + PROOF ═══════════════ */}
       <section className="py-14 px-4">
         <div className="max-w-content mx-auto">
-          <AlternatingSection index={3} productImage={product.images[0]} productName={product.arabicName}>
+          <AlternatingSection index={3} productImage={img(4)} productName={product.arabicName}>
             <div>
               <SectionHeader badge="المواصفات التقنية" title="شنو فيه المنتج بالضبط — بالتفصيل" />
               <ul className="mt-5 space-y-2">
@@ -255,7 +257,7 @@ export default function ProductPage({ params }: Props) {
       {/* ═══════════════ SECTION 5 — WHY PREMIUM ═══════════════ */}
       <section className="py-14 px-4 bg-bg">
         <div className="max-w-content mx-auto">
-          <AlternatingSection index={4} productImage={product.images[0]} productName={product.arabicName}>
+          <AlternatingSection index={4} productImage={img(5)} productName={product.arabicName}>
             <div>
               <SectionHeader badge="علاش الثمن مبرر" title="ماشي غالي — هادي استثمار فطوموبيلتك" subtitle="المنتجات الرخيصة كتتلف فأسبوع وكتكلفك أكثر على المدى الطويل. هنا كتشري جودة كتدوم." />
               <ul className="mt-5 space-y-3">
@@ -274,7 +276,7 @@ export default function ProductPage({ params }: Props) {
       {/* ═══════════════ SECTION 6 — CERTIFICATIONS & AUTHORITY ═══════════════ */}
       <section className="py-14 px-4">
         <div className="max-w-content mx-auto">
-          <AlternatingSection index={5} productImage={product.images[0]} productName={product.arabicName}>
+          <AlternatingSection index={5} productImage={img(7)} productName={product.arabicName}>
             <div>
               <SectionHeader
                 badge="الثقة والجودة"

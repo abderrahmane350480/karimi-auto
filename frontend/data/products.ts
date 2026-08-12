@@ -145,6 +145,13 @@ export const PRODUCTS: Product[] = [
     ],
     images: [
       "/images/products/umbrella-sunshade.webp",
+      "/images/products/sunshade-hero.webp",
+      "/images/products/sunshade-solution.webp",
+      "/images/products/sunshade-materials.webp",
+      "/images/products/sunshade-specs.webp",
+      "/images/products/sunshade-premium.webp",
+      "/images/products/sunshade-pain.webp",
+      "/images/products/sunshade-certifications.webp",
     ],
     offerLadder: [
       {
