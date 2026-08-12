@@ -69,12 +69,15 @@ export default function HomePage() {
         <div className="max-w-content mx-auto px-4">
           <div className="grid md:grid-cols-2 gap-10 items-center">
             <div className="order-2 md:order-1">
-              <div className="grid grid-cols-2 gap-3">
-                {PRODUCTS.map((p) => (
-                  <div key={p.slug} className={`relative aspect-square rounded-2xl overflow-hidden bg-white/10 ${p.slug === "umbrella-sunshade-titanium" ? "col-span-2" : ""}`}>
-                    <Image src={p.images[0]} alt={p.shortArabicName} fill className="object-contain p-4" sizes="(max-width: 768px) 50vw, 25vw" />
-                  </div>
-                ))}
+              <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden">
+                <Image
+                  src="/images/hero-home.webp"
+                  alt="حماية الطوموبيل الكاملة — واقي الشمس، سبراي السيراميك، GPS ضد السرقة"
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
+                />
               </div>
             </div>
 
