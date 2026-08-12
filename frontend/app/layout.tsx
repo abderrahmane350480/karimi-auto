@@ -35,6 +35,19 @@ export const metadata: Metadata = {
   description:
     "متخصصون فحماية السيارات: واقي الشمس تيتانيوم، سبراي السيراميك نانو، وجهاز GPS ضد السرقة. منتجات مختبرة للمناخ المغربي. الدفع عند الاستلام.",
   keywords: ["كريمي أوطو", "حماية الطوموبيل", "واقي الشمس", "سبراي السيراميك", "GPS ضد السرقة", "حماية السيارة", "المغرب", "الدفع عند الاستلام"],
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+  },
+  manifest: "/manifest.json",
   openGraph: {
     title: "كريمي أوطو — خبراء حماية الطوموبيل فالمغرب",
     description: "متخصصون فحماية السيارات من الحرارة، الخدوش، والسرقة — منتجات مختبرة للمناخ المغربي. الدفع عند الاستلام.",
